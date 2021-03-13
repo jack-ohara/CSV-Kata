@@ -2,7 +2,7 @@
 
 namespace DataConverter.Conversion.DataWriting
 {
-    internal class JsonDataWriter : IStructuredDataWriter
+    public class JsonDataWriter : IStructuredDataWriter
     {
         public StructuredData WriteData(IEnumerable<dynamic> interpretedData)
         {

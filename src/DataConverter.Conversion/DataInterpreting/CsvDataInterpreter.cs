@@ -2,9 +2,9 @@
 
 namespace DataConverter.Conversion.DataInterpreting
 {
-    internal class CsvDataInterpreter : IStructuredDataInterpreter
+    public class CsvDataInterpreter : IStructuredDataInterpreter
     {
-        public IEnumerable<dynamic> Interpret(string contents)
+        public IEnumerable<dynamic> Interpret(string csvData)
         {
             return new List<dynamic>();
         }

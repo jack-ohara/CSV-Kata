@@ -4,6 +4,6 @@ namespace DataConverter.Conversion.DataInterpreting
 {
     public interface IStructuredDataInterpreter
     {
-        IEnumerable<dynamic> Interpret(string contents);
+        IEnumerable<dynamic> Interpret(string structuredData);
     }
 }
