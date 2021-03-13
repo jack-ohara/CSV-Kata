@@ -26,17 +26,22 @@ namespace DataConverter.Conversion.DataInterpreting
 
                 if (headerSegments.Length > 1)
                 {
-                    if (result.ContainsKey(headerSegments[0]))
+                    var propertyName = headerSegments[^1];
+                    var nestingProperties = headerSegments[..^1];
+
+                    var previousLevelDictionary = result;
+
+                    foreach(var property in nestingProperties)
                     {
-                        result[headerSegments[0]].AsDictionary()[headerSegments[1]] = row[i];
-                    }
-                    else
-                    {
-                        result[headerSegments[0]] = new Dictionary<string, object>
+                        if (!previousLevelDictionary.ContainsKey(property))
                         {
-                            [headerSegments[1]] = row[i]
-                        };
+                            previousLevelDictionary[property] = new Dictionary<string, object>();
+                        }
+
+                        previousLevelDictionary = previousLevelDictionary[property].AsDictionary();
                     }
+
+                    previousLevelDictionary[propertyName] = row[i];
                 }
                 else
                 {
@@ -45,14 +50,6 @@ namespace DataConverter.Conversion.DataInterpreting
             }
 
             return result;
-        }
-    }
-
-    internal static class ObjectExtensions
-    {
-        public static Dictionary<string, object> AsDictionary(this object obj)
-        {
-            return (Dictionary<string, object>)obj;
         }
     }
 }

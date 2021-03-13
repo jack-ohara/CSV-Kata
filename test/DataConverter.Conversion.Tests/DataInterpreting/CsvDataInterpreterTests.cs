@@ -31,18 +31,20 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
         public void Produces_expected_data_from_csv_string_with_nested_properties()
         {
             const string csvData =
-                "property1,property2,nested_property1,nested_property2\n" +
+                "property1,property2,nested_property1,nested_nested1_property2\n" +
                 "value1,value2,nested_value1,nested_value2";
 
             var interpreter = new CsvDataInterpreter();
 
             var result = interpreter.Interpret(csvData).ToList();
 
+            var json = JsonConvert.SerializeObject(result);
+
             Assert.Single(result);
             Assert.Equal("value1", result[0]["property1"]);
             Assert.Equal("value2", result[0]["property2"]);
-            Assert.Equal("nested_value1", ((Dictionary<string, object>)result[0]["nested"])["property1"]);
-            Assert.Equal("nested_value2", ((Dictionary<string, object>)result[0]["nested"])["property2"]);
+            Assert.Equal("nested_value1", result[0]["nested"].AsDictionary()["property1"]);
+            Assert.Equal("nested_value2", result[0]["nested"].AsDictionary()["nested1"].AsDictionary()["property2"]);
         }
 
         // Test cases:
