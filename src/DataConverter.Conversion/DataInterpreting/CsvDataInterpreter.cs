@@ -13,19 +13,46 @@ namespace DataConverter.Conversion.DataInterpreting
             var headers = lines[0].Split(',');
             var rows = lines[1..].Select(x => x.Split(','));
 
-            return rows.Select(row => GetDynamicRow(headers, row));
+            return rows.Select(row => GetDataRow(headers, row));
         }
 
-        private static IDictionary<string, object> GetDynamicRow(string[] headers, string[] row)
+        private static IDictionary<string, object> GetDataRow(string[] headers, string[] row)
         {
             var result = new Dictionary<string, object>();
 
             for (var i = 0; i < headers.Length; i++)
             {
-                result[headers[i]] = row[i];
+                var headerSegments = headers[i].Split('_');
+
+                if (headerSegments.Length > 1)
+                {
+                    if (result.ContainsKey(headerSegments[0]))
+                    {
+                        result[headerSegments[0]].AsDictionary()[headerSegments[1]] = row[i];
+                    }
+                    else
+                    {
+                        result[headerSegments[0]] = new Dictionary<string, object>
+                        {
+                            [headerSegments[1]] = row[i]
+                        };
+                    }
+                }
+                else
+                {
+                    result[headerSegments[0]] = row[i];
+                }
             }
 
             return result;
+        }
+    }
+
+    internal static class ObjectExtensions
+    {
+        public static Dictionary<string, object> AsDictionary(this object obj)
+        {
+            return (Dictionary<string, object>)obj;
         }
     }
 }
