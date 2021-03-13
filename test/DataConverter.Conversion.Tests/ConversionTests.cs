@@ -1,3 +1,4 @@
+using DataConverter.Conversion;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
@@ -9,10 +10,13 @@ namespace DataConverter.Tests
         [Fact]
         public async Task Converts_CSV_to_expected_json()
         {
-            var options = new ConverterOptions
+            var options = new StructuredDataConversionOptions
             {
-                InputFormat = StructuredDataFormat.Csv,
-                InputContents = await File.ReadAllTextAsync("./input.csv"),
+                InputData = new StructuredData
+                {
+                    Format = StructuredDataFormat.Csv,
+                    Contents = await File.ReadAllTextAsync("./input.csv")
+                },
                 TargetFormat = StructuredDataFormat.Json
             };
 
