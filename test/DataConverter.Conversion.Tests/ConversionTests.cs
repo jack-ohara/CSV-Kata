@@ -1,4 +1,6 @@
 using DataConverter.Conversion;
+using DataConverter.Conversion.DataInterpreting;
+using DataConverter.Conversion.DataWriting;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
@@ -20,7 +22,9 @@ namespace DataConverter.Tests
                 TargetFormat = StructuredDataFormat.Json
             };
 
-            var converter = new StructuredDataConverter();
+            var converter = new StructuredDataConverter(
+                new StructuredDataInterpreterFactory(),
+                new StructuredDataWriterFactory());
 
             var result = converter.Convert(options);
 
