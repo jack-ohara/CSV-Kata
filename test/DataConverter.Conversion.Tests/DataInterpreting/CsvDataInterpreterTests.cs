@@ -1,6 +1,5 @@
 ﻿using DataConverter.Conversion.DataInterpreting;
-using Newtonsoft.Json;
-using System.Collections.Generic;
+using System;
 using System.Linq;
 using Xunit;
 
@@ -38,8 +37,6 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
 
             var result = interpreter.Interpret(csvData).ToList();
 
-            var json = JsonConvert.SerializeObject(result);
-
             Assert.Single(result);
             Assert.Equal("value1", result[0]["property1"]);
             Assert.Equal("value2", result[0]["property2"]);
@@ -47,8 +44,22 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
             Assert.Equal("nested_value2", result[0]["nested"].AsDictionary()["nested1"].AsDictionary()["property2"]);
         }
 
+        [InlineData("value1,value2", 2)]
+        [InlineData("value1,value2,value3,value4", 4)]
+        [InlineData("", 4)]
+        [Theory]
+        public void Throws_an_error_when_a_row_has_a_mismatched_number_of_values(string dataRow, int valueCount)
+        {
+            var csvData = "property1,property2,property3\n" + dataRow;
+
+            var interpreter = new CsvDataInterpreter();
+
+            var ex = Assert.Throws<InvalidCsvDataException>(() => interpreter.Interpret(csvData));
+            Assert.Equal($"Row 1 of the csv data contains {valueCount} value{(valueCount != 1 ? "s" : "")} but 3 were expected", ex.Message);
+        }
+
         // Test cases:
-        // Row with now value for a property
+        // Row with no value for a property
         // Row with too few/too many values for the headers
     }
 }
