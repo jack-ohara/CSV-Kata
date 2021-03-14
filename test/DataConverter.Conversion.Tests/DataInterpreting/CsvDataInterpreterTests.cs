@@ -92,5 +92,14 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
             Assert.Equal(expectedValues[1], resultRow["property2"]);
             Assert.Equal(expectedValues[2], resultRow["nested"].AsDictionary()["property3"]);
         }
+
+        [Fact]
+        public void Throws_exception_when_data_is_null()
+        {
+            var interpreter = new CsvDataInterpreter();
+
+            var ex = Assert.Throws<ArgumentNullException>(() => interpreter.Interpret(null));
+            Assert.Equal("csvData", ex.ParamName);
+        }
     }
 }

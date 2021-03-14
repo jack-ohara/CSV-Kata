@@ -8,6 +8,11 @@ namespace DataConverter.Conversion.DataInterpreting
     {
         public IEnumerable<IDictionary<string, object>> Interpret(string csvData)
         {
+            if (csvData is null)
+            {
+                throw new ArgumentNullException(nameof(csvData));
+            }
+
             var lines = csvData.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             var headers = lines[0].Split(',');
