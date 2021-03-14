@@ -8,16 +8,22 @@ namespace DataConverter.Conversion.DataInterpreting
     {
         public IEnumerable<IDictionary<string, object>> Interpret(string csvData)
         {
-            var lines = csvData.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+            var lines = csvData.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             var headers = lines[0].Split(',');
             var rows = lines[1..].Select(x => x.Split(','));
 
-            return rows.Select(row => GetDataRow(headers, row));
+            return rows.Select((row, idx) => GetDataRow(headers, row, idx));
         }
 
-        private static IDictionary<string, object> GetDataRow(string[] headers, string[] row)
+        private static IDictionary<string, object> GetDataRow(string[] headers, string[] row, int rowIndex)
         {
+            if (row.Length != headers.Length)
+            {
+                throw new InvalidCsvDataException(
+                    $"Row {rowIndex + 1} of the csv data contains {row.Length} value{(row.Length != 1 ? "s" : "")} but {headers.Length} were expected");
+            }
+
             var result = new Dictionary<string, object>();
 
             for (var i = 0; i < headers.Length; i++)

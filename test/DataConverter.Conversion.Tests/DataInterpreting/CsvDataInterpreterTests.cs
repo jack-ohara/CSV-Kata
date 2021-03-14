@@ -46,7 +46,6 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
 
         [InlineData("value1,value2", 2)]
         [InlineData("value1,value2,value3,value4", 4)]
-        [InlineData("", 4)]
         [Theory]
         public void Throws_an_error_when_a_row_has_a_mismatched_number_of_values(string dataRow, int valueCount)
         {
@@ -54,12 +53,25 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
 
             var interpreter = new CsvDataInterpreter();
 
-            var ex = Assert.Throws<InvalidCsvDataException>(() => interpreter.Interpret(csvData));
+            var ex = Assert.Throws<InvalidCsvDataException>(() => interpreter.Interpret(csvData).ToList());
             Assert.Equal($"Row 1 of the csv data contains {valueCount} value{(valueCount != 1 ? "s" : "")} but 3 were expected", ex.Message);
         }
 
-        // Test cases:
-        // Row with no value for a property
-        // Row with too few/too many values for the headers
+        [Fact]
+        public void Enters_null_where_no_value_is_supplied_for_a_property()
+        {
+            var csvData = "property1,property2,property3\n";
+
+            var interpreter = new CsvDataInterpreter();
+
+            var result = interpreter.Interpret(csvData).ToList();
+
+            Assert.Single(result);
+
+            var resultRow = result[0];
+            Assert.Null(resultRow["property1"]);
+            Assert.Null(resultRow["property2"]);
+            Assert.Null(resultRow["property3"]);
+        }
     }
 }
