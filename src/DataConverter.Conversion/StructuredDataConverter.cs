@@ -1,5 +1,6 @@
 ﻿using DataConverter.Conversion.DataInterpreting;
 using DataConverter.Conversion.DataWriting;
+using System.Linq;
 
 namespace DataConverter.Conversion
 {
@@ -24,7 +25,9 @@ namespace DataConverter.Conversion
 
             var writer = _dataWriterFactory.GetWriter(conversionOptions.TargetFormat);
 
-            return writer.WriteData(interpretedData);
+            object dataToConvert = interpretedData.Count() == 1 ? interpretedData.First() : interpretedData;
+
+            return writer.WriteData(dataToConvert);
         }
     }
 }

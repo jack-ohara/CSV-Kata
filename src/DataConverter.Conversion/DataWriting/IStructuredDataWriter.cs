@@ -4,6 +4,6 @@ namespace DataConverter.Conversion.DataWriting
 {
     public interface IStructuredDataWriter
     {
-        StructuredData WriteData(IEnumerable<dynamic> interpretedData);
+        StructuredData WriteData(object interpretedData);
     }
 }
