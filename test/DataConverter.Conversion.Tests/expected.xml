@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <row>
+    <name>Dave</name>
+    <address>
+      <line1>Street</line1>
+      <line2>Town</line2>
+    </address>
+  </row>
+</root>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <row>
+    <name>Jack</name>
+    <contact>
+      <emailAddress>test@Test.com</emailAddress>
+      <address>
+        <line1>1 Nowhere Road</line1>
+        <line2>Nowhereville</line2>
+      </address>
+    </contact>
+  </row>
+  <row>
+    <name>Sam</name>
+    <contact>
+      <emailAddress>test123@Test.com</emailAddress>
+      <address>
+        <line1>6 Somewhere Road</line1>
+        <line2>Somewhereton</line2>
+      </address>
+    </contact>
+  </row>
+</root>
