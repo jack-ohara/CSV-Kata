@@ -1,0 +1,22 @@
+[
+  {
+    "name": "Jack",
+    "contact": {
+      "emailAddress": "test@test.com",
+      "address": {
+        "line1": "1 Nowhere Road",
+        "line2": "Nowhereville"
+      }
+    }
+  },
+  {
+    "name": "Sam",
+    "contact": {
+      "emailAddress": "test123@test.com",
+      "address": {
+        "line1": "6 Somewhere Road",
+        "line2": "Somewhereton"
+      }
+    }
+  }
+]

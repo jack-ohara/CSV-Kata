@@ -9,15 +9,17 @@ namespace DataConverter.Tests
 {
     public class ConversionTests
     {
-        [Fact]
-        public async Task Converts_CSV_to_expected_json()
+        [InlineData("./input.csv", "./expected.json")]
+        [InlineData("./multi-row.csv", "./multi-row-expected.json")]
+        [Theory]
+        public async Task Converts_CSV_to_expected_json(string inputFilePath, string expectedFilePath)
         {
             var options = new StructuredDataConversionOptions
             {
                 InputData = new StructuredData
                 {
                     Format = StructuredDataFormat.Csv,
-                    Contents = await File.ReadAllTextAsync("./input.csv")
+                    Contents = await File.ReadAllTextAsync(inputFilePath)
                 },
                 TargetFormat = StructuredDataFormat.Json
             };
@@ -29,7 +31,7 @@ namespace DataConverter.Tests
             var result = converter.Convert(options);
 
             Assert.Equal(StructuredDataFormat.Json, result.Format);
-            Assert.Equal(await File.ReadAllTextAsync("./expected.json"), result.Contents);
+            Assert.Equal(await File.ReadAllTextAsync(expectedFilePath), result.Contents);
         }
     }
 }
