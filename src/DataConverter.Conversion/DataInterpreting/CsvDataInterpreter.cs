@@ -11,7 +11,12 @@ namespace DataConverter.Conversion.DataInterpreting
             var lines = csvData.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries);
 
             var headers = lines[0].Split(',');
-            var rows = lines[1..].Select(x => x.Split(','));
+            var rows = lines[1..].Select(x => x.Split(',')).ToList();
+
+            if (rows.Count == 0)
+            {
+                rows.Add(new string[headers.Length]);
+            }
 
             return rows.Select((row, idx) => GetDataRow(headers, row, idx));
         }

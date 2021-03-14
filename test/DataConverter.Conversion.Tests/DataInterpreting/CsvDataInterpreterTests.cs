@@ -58,9 +58,9 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
         }
 
         [Fact]
-        public void Enters_null_where_no_value_is_supplied_for_a_property()
+        public void Enters_null_values_when_no_data_is_supplied()
         {
-            var csvData = "property1,property2,property3\n";
+            var csvData = "property1,property2,nested_property3";
 
             var interpreter = new CsvDataInterpreter();
 
@@ -71,7 +71,26 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
             var resultRow = result[0];
             Assert.Null(resultRow["property1"]);
             Assert.Null(resultRow["property2"]);
-            Assert.Null(resultRow["property3"]);
+            Assert.Null(resultRow["nested"].AsDictionary()["property3"]);
+        }
+
+        [InlineData("value1,,value3", "value1", "", "value3")]
+        [InlineData(",,", "", "", "")]
+        [Theory]
+        public void Enters_empty_strings_when_no_value_is_supplied_for_a_property(string dataRow, params string[] expectedValues)
+        {
+            var csvData = "property1,property2,nested_property3\n" + dataRow;
+
+            var interpreter = new CsvDataInterpreter();
+
+            var result = interpreter.Interpret(csvData).ToList();
+
+            Assert.Single(result);
+
+            var resultRow = result[0];
+            Assert.Equal(expectedValues[0], resultRow["property1"]);
+            Assert.Equal(expectedValues[1], resultRow["property2"]);
+            Assert.Equal(expectedValues[2], resultRow["nested"].AsDictionary()["property3"]);
         }
     }
 }
