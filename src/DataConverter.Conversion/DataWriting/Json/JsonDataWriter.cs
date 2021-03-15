@@ -6,14 +6,22 @@ namespace DataConverter.Conversion.DataWriting.Json
     {
         public StructuredData WriteData(object interpretedData)
         {
-            var options = new JsonSerializerOptions { WriteIndented = true };
-
-            return
-                new StructuredData
+            if (interpretedData is null)
+            {
+                return new StructuredData
                 {
                     Format = StructuredDataFormat.Json,
-                    Contents = JsonSerializer.Serialize(interpretedData, options)
+                    Contents = string.Empty
                 };
+            }
+
+            var options = new JsonSerializerOptions { WriteIndented = true };
+
+            return new StructuredData
+            {
+                Format = StructuredDataFormat.Json,
+                Contents = JsonSerializer.Serialize(interpretedData, options)
+            };
         }
     }
 }
