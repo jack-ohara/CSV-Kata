@@ -58,5 +58,35 @@ namespace DataConverter.Tests
             Assert.Equal(StructuredDataFormat.Xml, result.Format);
             Assert.Equal(await File.ReadAllTextAsync(expectedFilePath), result.Contents);
         }
+
+        [Fact]
+        public async Task Uses_custom_xml_field_names_when_supplied()
+        {
+            var xmlOptions = new XmlConversionOptions
+            {
+                RootNodeName = "clients",
+                RowNodeName = "client"
+            };
+
+            var options = new StructuredDataConversionOptions
+            {
+                InputData = new StructuredData
+                {
+                    Format = StructuredDataFormat.Csv,
+                    Contents = await File.ReadAllTextAsync("./multi-row.csv")
+                },
+                TargetFormat = StructuredDataFormat.Xml,
+                XmlOptions = xmlOptions
+            };
+
+            var converter = new StructuredDataConverter(
+                new StructuredDataInterpreterFactory(),
+                new StructuredDataWriterFactory());
+
+            var result = converter.Convert(options);
+
+            Assert.Equal(StructuredDataFormat.Xml, result.Format);
+            Assert.Equal(await File.ReadAllTextAsync("./expected-custom-fields.xml"), result.Contents);
+        }
     }
 }
