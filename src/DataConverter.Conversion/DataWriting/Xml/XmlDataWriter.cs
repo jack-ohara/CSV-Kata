@@ -19,6 +19,15 @@ namespace DataConverter.Conversion.DataWriting.Xml
 
         public StructuredData WriteData(object interpretedData)
         {
+            if (interpretedData is null)
+            {
+                return new StructuredData
+                {
+                    Format = StructuredDataFormat.Xml,
+                    Contents = string.Empty
+                };
+            }
+
             var dataToConvert = interpretedData is IEnumerable<IDictionary<string, object>> dataRows
                 ? new Dictionary<string, object> { [_options.RowNodeName] = dataRows } :
                 interpretedData;

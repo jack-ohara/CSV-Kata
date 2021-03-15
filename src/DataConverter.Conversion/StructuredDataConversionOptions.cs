@@ -6,6 +6,6 @@ namespace DataConverter.Conversion
     {
         public StructuredData InputData { get; set; }
         public StructuredDataFormat TargetFormat { get; set; }
-        public XmlConversionOptions XmlOptions { get; set; }
+        public XmlConversionOptions XmlOptions { get; set; } = new XmlConversionOptions();
     }
 }

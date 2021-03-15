@@ -13,7 +13,7 @@ namespace DataConverter.Conversion.Tests.DataWriting.Xml
 
             var result = sut.WriteData(null);
 
-            Assert.Equal(StructuredDataFormat.Json, result.Format);
+            Assert.Equal(StructuredDataFormat.Xml, result.Format);
             Assert.Equal(string.Empty, result.Contents);
         }
     }
