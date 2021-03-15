@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.Serialization;
 
-namespace DataConverter.Conversion.DataInterpreting
+namespace DataConverter.Conversion.DataInterpreting.Csv
 {
     public class InvalidCsvDataException : Exception
     {

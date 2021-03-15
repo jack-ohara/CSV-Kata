@@ -1,6 +1,6 @@
 ﻿using System.Text.Json;
 
-namespace DataConverter.Conversion.DataWriting
+namespace DataConverter.Conversion.DataWriting.Json
 {
     public class JsonDataWriter : IStructuredDataWriter
     {
@@ -8,7 +8,7 @@ namespace DataConverter.Conversion.DataWriting
         {
             var options = new JsonSerializerOptions { WriteIndented = true };
 
-            return 
+            return
                 new StructuredData
                 {
                     Format = StructuredDataFormat.Json,

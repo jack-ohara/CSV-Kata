@@ -33,6 +33,9 @@
     <None Update="input.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="expected-custom-fields.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Update="multi-row-expected.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

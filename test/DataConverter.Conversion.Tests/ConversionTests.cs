@@ -1,6 +1,7 @@
 using DataConverter.Conversion;
 using DataConverter.Conversion.DataInterpreting;
 using DataConverter.Conversion.DataWriting;
+using DataConverter.Conversion.DataWriting.Xml;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;

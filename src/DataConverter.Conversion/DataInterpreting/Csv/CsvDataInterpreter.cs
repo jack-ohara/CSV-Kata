@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace DataConverter.Conversion.DataInterpreting
+namespace DataConverter.Conversion.DataInterpreting.Csv
 {
     public class CsvDataInterpreter : IStructuredDataInterpreter
     {
@@ -47,7 +47,7 @@ namespace DataConverter.Conversion.DataInterpreting
 
                     var previousLevelDictionary = result;
 
-                    foreach(var property in nestingProperties)
+                    foreach (var property in nestingProperties)
                     {
                         if (!previousLevelDictionary.ContainsKey(property))
                         {

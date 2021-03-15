@@ -1,10 +1,14 @@
-﻿using System;
+﻿using DataConverter.Conversion.DataWriting.Json;
+using DataConverter.Conversion.DataWriting.Xml;
+using System;
 
 namespace DataConverter.Conversion.DataWriting
 {
     public class StructuredDataWriterFactory
     {
-        public IStructuredDataWriter GetWriter(StructuredDataFormat dataFormat)
+        public IStructuredDataWriter GetWriter(
+            StructuredDataFormat dataFormat,
+            StructuredDataConversionOptions conversionOptions)
         {
             switch (dataFormat)
             {
@@ -12,7 +16,7 @@ namespace DataConverter.Conversion.DataWriting
                     return new JsonDataWriter();
 
                 case StructuredDataFormat.Xml:
-                    return new XmlDataWriter(new JsonDataWriter());
+                    return new XmlDataWriter(new JsonDataWriter(), conversionOptions.XmlOptions);
 
                 default:
                     throw new ArgumentException(
