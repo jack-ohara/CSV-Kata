@@ -55,7 +55,7 @@ namespace DataConverter.Tests
 
             var result = converter.Convert(options);
 
-            Assert.Equal(StructuredDataFormat.Json, result.Format);
+            Assert.Equal(StructuredDataFormat.Xml, result.Format);
             Assert.Equal(await File.ReadAllTextAsync(expectedFilePath), result.Contents);
         }
     }
