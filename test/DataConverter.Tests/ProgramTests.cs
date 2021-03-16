@@ -38,6 +38,30 @@ namespace DataConverter.Tests
             Assert.Contains("Option 'test' is unknown", consoleOutput);
         }
 
+        [Fact]
+        public void Writes_an_error_to_the_console_when_the_csv_input_is_not_supplied()
+        {
+            var args = new[] { "-f", "json" };
+
+            var result = Program.Main(args);
+            var consoleOutput = GetConsoleOutput();
+
+            Assert.Equal(1, result);
+            Assert.Contains("Required option 'c, csvInputFile' is missing", consoleOutput);
+        }
+
+        [Fact]
+        public void Writes_an_error_to_the_console_when_the_output_file_is_not_supplied()
+        {
+            var args = new[] { "-c", "input.csv" };
+
+            var result = Program.Main(args);
+            var consoleOutput = GetConsoleOutput();
+
+            Assert.Equal(1, result);
+            Assert.Contains("Required option 'o, outputFile' is missing", consoleOutput);
+        }
+
         private string GetConsoleOutput()
         {
             return _stringBuilder.ToString();
