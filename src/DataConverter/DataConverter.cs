@@ -1,4 +1,4 @@
-﻿using DataConverter.CommandLineOptions;
+﻿using DataConverter.Console.CommandLineOptions;
 using DataConverter.Conversion;
 using DataConverter.Conversion.DataInterpreting;
 using DataConverter.Conversion.DataWriting;
@@ -6,7 +6,7 @@ using FluentValidation;
 using System;
 using System.IO;
 
-namespace DataConverter
+namespace DataConverter.Console
 {
     public class DataConverter
     {

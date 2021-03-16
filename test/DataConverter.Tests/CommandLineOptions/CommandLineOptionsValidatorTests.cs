@@ -1,8 +1,8 @@
-﻿using DataConverter.CommandLineOptions;
+﻿using DataConverter.Console.CommandLineOptions;
 using FluentValidation.TestHelper;
 using Xunit;
 
-namespace DataConverter.Tests.CommandLineOptions
+namespace DataConverter.Console.Tests.CommandLineOptions
 {
     public class CommandLineOptionsValidatorTests
     {

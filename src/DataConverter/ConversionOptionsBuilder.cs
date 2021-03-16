@@ -1,7 +1,7 @@
 ﻿using DataConverter.Conversion;
 using DataConverter.Conversion.DataWriting.Xml;
 
-namespace DataConverter
+namespace DataConverter.Console
 {
     public class ConversionOptionsBuilder
     {

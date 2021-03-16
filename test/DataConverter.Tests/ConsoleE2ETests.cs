@@ -1,12 +1,8 @@
-using DataConverter.Conversion;
-using DataConverter.Conversion.DataInterpreting;
-using DataConverter.Conversion.DataWriting;
-using DataConverter.Conversion.DataWriting.Xml;
 using System.IO;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DataConverter.Tests
+namespace DataConverter.Console.Tests
 {
     public class ConsoleE2ETests : IAsyncLifetime
     {

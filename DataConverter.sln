@@ -7,13 +7,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B25BCA2D-5E4
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{CA02A2FD-248C-4539-BFF5-B9B60DDEBD36}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataConverter", "src\DataConverter\DataConverter.csproj", "{9ECAC541-A4A8-40E0-A6AA-0842A0D4A56A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataConverter.Console", "src\DataConverter\DataConverter.Console.csproj", "{9ECAC541-A4A8-40E0-A6AA-0842A0D4A56A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataConverter.Tests", "test\DataConverter.Tests\DataConverter.Tests.csproj", "{5136367E-3C1B-47C4-A469-D34A6FE07903}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataConverter.Console.Tests", "test\DataConverter.Tests\DataConverter.Console.Tests.csproj", "{5136367E-3C1B-47C4-A469-D34A6FE07903}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataConverter.Conversion", "src\DataConverter.Conversion\DataConverter.Conversion.csproj", "{F23B7CA5-DBC4-465C-B200-6FA4BA223966}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataConverter.Conversion", "src\DataConverter.Conversion\DataConverter.Conversion.csproj", "{F23B7CA5-DBC4-465C-B200-6FA4BA223966}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataConverter.Conversion.Tests", "test\DataConverter.Conversion.Tests\DataConverter.Conversion.Tests.csproj", "{0DD2C5EB-6CDD-4620-9301-7D4FCD334AE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataConverter.Conversion.Tests", "test\DataConverter.Conversion.Tests\DataConverter.Conversion.Tests.csproj", "{0DD2C5EB-6CDD-4620-9301-7D4FCD334AE1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

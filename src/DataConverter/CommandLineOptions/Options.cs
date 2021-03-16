@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 
-namespace DataConverter.CommandLineOptions
+namespace DataConverter.Console.CommandLineOptions
 {
     public class Options
     {

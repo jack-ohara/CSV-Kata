@@ -1,15 +1,15 @@
 ﻿using CommandLine;
-using DataConverter.CommandLineOptions;
+using DataConverter.Console.CommandLineOptions;
 using System;
 using System.Collections.Generic;
 
-namespace DataConverter
+namespace DataConverter.Console
 {
     public static class Program
     {
         public static int Main(string[] args)
         {
-            var parser = new Parser(x => x.HelpWriter = Console.Out);
+            var parser = new Parser(x => x.HelpWriter = System.Console.Out);
 
             var result = parser.ParseArguments<Options>(args)
                 .MapResult(RunConversion, HandleErrors);
@@ -31,7 +31,7 @@ namespace DataConverter
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                System.Console.WriteLine(ex.ToString());
 
                 return 1;
             }

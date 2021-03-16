@@ -1,10 +1,9 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace DataConverter.Tests
+namespace DataConverter.Console.Tests
 {
     public class ProgramTests : IAsyncLifetime
     {
@@ -21,7 +20,7 @@ namespace DataConverter.Tests
             _stringBuilder = new StringBuilder();
             _consoleOutput = new StringWriter(_stringBuilder);
 
-            Console.SetOut(_consoleOutput);
+            System.Console.SetOut(_consoleOutput);
 
             return Task.CompletedTask;
         }

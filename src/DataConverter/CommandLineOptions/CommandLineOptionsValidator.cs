@@ -4,7 +4,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace DataConverter.CommandLineOptions
+namespace DataConverter.Console.CommandLineOptions
 {
     public class CommandLineOptionsValidator : AbstractValidator<Options>
     {
