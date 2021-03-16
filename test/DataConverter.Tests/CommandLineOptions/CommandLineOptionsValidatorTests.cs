@@ -41,6 +41,19 @@ namespace DataConverter.Tests.CommandLineOptions
                 .WithErrorMessage($"The specified format 'yaml' is unrecognised or unsupported. Supported formats are: Json, Xml");
         }
 
+        [InlineData(null)]
+        [InlineData("")]
+        [Theory]
+        public void Returns_an_error_when_the_xml_root_name_is_empty(string xmlRootName)
+        {
+            var options = new Options { XmlRootName = xmlRootName };
+
+            var result = new CommandLineOptionsValidator().TestValidate(options);
+
+            result.ShouldHaveValidationErrorFor(o => o.XmlRootName)
+                .WithErrorMessage("'xmlRootName' must not be empty.");
+        }
+
         [Fact]
         public void Validation_is_successful_for_a_valid_config()
         {
