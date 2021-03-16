@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\DataConverter\DataConverter.Console.csproj" />
+    <ProjectReference Include="..\..\src\DataConverter.Console\DataConverter.Console.csproj" />
   </ItemGroup>
 
   <ItemGroup>
