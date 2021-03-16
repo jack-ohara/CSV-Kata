@@ -34,6 +34,18 @@ namespace DataConverter
             return this;
         }
 
+        public ConversionOptionsBuilder WithXmlRootName(string xmlRootName)
+        {
+            _options.XmlOptions.RootNodeName = xmlRootName;
+            return this;
+        }
+
+        public ConversionOptionsBuilder WithXmlRowName(string xmlRowName)
+        {
+            _options.XmlOptions.RowNodeName = xmlRowName;
+            return this;
+        }
+
         public StructuredDataConversionOptions Build()
         {
             return _options;

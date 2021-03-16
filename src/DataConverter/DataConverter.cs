@@ -36,6 +36,8 @@ namespace DataConverter
                 .WithInputFormat(StructuredDataFormat.Csv)
                 .WithInputContents(fileContents)
                 .WithTargetFormat((StructuredDataFormat)Enum.Parse(typeof(StructuredDataFormat), commandLineOptions.TargetFormat, true))
+                .WithXmlRootName(commandLineOptions.XmlRootName)
+                .WithXmlRowName(commandLineOptions.XmlRowName)
                 .Build();
 
             var converter = new StructuredDataConverter(
