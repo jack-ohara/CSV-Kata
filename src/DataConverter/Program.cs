@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using DataConverter.CommandLineOptions;
 using System;
 using System.Collections.Generic;
 
@@ -10,13 +11,13 @@ namespace DataConverter
         {
             var parser = new Parser(x => x.HelpWriter = Console.Out);
 
-            var result = parser.ParseArguments<CommandLineOptions>(args)
+            var result = parser.ParseArguments<Options>(args)
                 .MapResult(RunConversion, HandleErrors);
 
             return result;
         }
 
-        private static int RunConversion(CommandLineOptions options)
+        private static int RunConversion(Options options)
         {
             try
             {
@@ -34,15 +35,5 @@ namespace DataConverter
         {
             return 1;
         }
-    }
-
-    class CommandLineOptions
-    {
-        [Option('c', "csvInputFile", Required = true, HelpText = "Specifies the CSV input file to convert.")]
-        public string CsvInputFileName { get; set; }
-
-        [Option('f', "format", Default = "json", HelpText = "Specifies the target format to convert to.")]
-        public string TargetFormat { get; set; }
-
     }
 }
