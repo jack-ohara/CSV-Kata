@@ -64,7 +64,7 @@ namespace DataConverter.Tests.CommandLineOptions
             var result = new CommandLineOptionsValidator().TestValidate(options);
 
             result.ShouldHaveValidationErrorFor(o => o.XmlRowName)
-                .WithErrorMessage("'xmlRootName' must not be empty.");
+                .WithErrorMessage("'xmlRowName' must not be empty.");
         }
 
         [Fact]

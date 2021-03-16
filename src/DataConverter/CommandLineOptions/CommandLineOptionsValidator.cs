@@ -27,6 +27,10 @@ namespace DataConverter.CommandLineOptions
             RuleFor(o => o.XmlRootName)
                 .NotEmpty()
                 .WithName("xmlRootName");
+
+            RuleFor(o => o.XmlRowName)
+                .NotEmpty()
+                .WithName("xmlRowName");
         }
     }
 }
