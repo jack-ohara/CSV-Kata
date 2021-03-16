@@ -8,7 +8,7 @@ using Xunit;
 
 namespace DataConverter.Tests
 {
-    public class ConversionTests : IAsyncLifetime
+    public class ConsoleE2ETests : IAsyncLifetime
     {
         private static readonly string _jsonOutputFilePath = "./output.json";
         private static readonly string _xmlOutputFilePath = "./output.json";
@@ -58,31 +58,21 @@ namespace DataConverter.Tests
         [Fact]
         public async Task Uses_custom_xml_field_names_when_supplied()
         {
-            var xmlOptions = new XmlConversionOptions
+            var args = new[] 
             {
-                RootNodeName = "clients",
-                RowNodeName = "client"
+                "-c", "./multi-row.csv",
+                "-f", "xml",
+                "-o", _xmlOutputFilePath,
+                "--xmlRootName", "clients",
+                "--xmlRowName", "client"
             };
 
-            var options = new StructuredDataConversionOptions
-            {
-                InputData = new StructuredData
-                {
-                    Format = StructuredDataFormat.Csv,
-                    Contents = await File.ReadAllTextAsync("./multi-row.csv")
-                },
-                TargetFormat = StructuredDataFormat.Xml,
-                XmlOptions = xmlOptions
-            };
+            Program.Main(args);
 
-            var converter = new StructuredDataConverter(
-                new StructuredDataInterpreterFactory(),
-                new StructuredDataWriterFactory());
+            Assert.True(File.Exists(_xmlOutputFilePath));
 
-            var result = converter.Convert(options);
-
-            Assert.Equal(StructuredDataFormat.Xml, result.Format);
-            Assert.Equal(await File.ReadAllTextAsync("./expected-custom-fields.xml"), result.Contents);
+            var outputFileContents = await File.ReadAllTextAsync(_xmlOutputFilePath);
+            Assert.Equal(await File.ReadAllTextAsync("./expected-custom-fields.xml"), outputFileContents);
         }
     }
 }
