@@ -73,7 +73,9 @@ namespace DataConverter.Tests.CommandLineOptions
             var options = new Options
             {
                 CsvInputFileName = "./CommandLineOptions/exists.csv",
-                TargetFormat = "json"
+                TargetFormat = "json",
+                XmlRootName = "root",
+                XmlRowName = "row"
             };
 
             var result = new CommandLineOptionsValidator().TestValidate(options);
