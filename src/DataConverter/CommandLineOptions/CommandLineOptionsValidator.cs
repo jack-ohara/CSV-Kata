@@ -23,6 +23,10 @@ namespace DataConverter.CommandLineOptions
                 .NotEmpty()
                 .Must(f => Enum.TryParse(typeof(StructuredDataFormat), f, true, out _))
                 .WithMessage(o => $"The specified format '{o.TargetFormat}' is unrecognised or unsupported. Supported formats are: {ValidFormats}");
+
+            RuleFor(o => o.XmlRootName)
+                .NotEmpty()
+                .WithName("xmlRootName");
         }
     }
 }

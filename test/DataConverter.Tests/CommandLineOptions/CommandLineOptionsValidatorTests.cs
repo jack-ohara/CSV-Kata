@@ -54,6 +54,19 @@ namespace DataConverter.Tests.CommandLineOptions
                 .WithErrorMessage("'xmlRootName' must not be empty.");
         }
 
+        [InlineData(null)]
+        [InlineData("")]
+        [Theory]
+        public void Returns_an_error_when_the_xml_row_name_is_empty(string xmlRowName)
+        {
+            var options = new Options { XmlRowName = xmlRowName };
+
+            var result = new CommandLineOptionsValidator().TestValidate(options);
+
+            result.ShouldHaveValidationErrorFor(o => o.XmlRowName)
+                .WithErrorMessage("'xmlRootName' must not be empty.");
+        }
+
         [Fact]
         public void Validation_is_successful_for_a_valid_config()
         {
