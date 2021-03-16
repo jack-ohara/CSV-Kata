@@ -21,6 +21,12 @@ namespace DataConverter
         {
             try
             {
+                var converter = new DataConverter(
+                    new CommandLineOptionsValidator(),
+                    new ConversionOptionsBuilder());
+
+                converter.RunConversion(options);
+
                 return 0;
             }
             catch (Exception ex)
