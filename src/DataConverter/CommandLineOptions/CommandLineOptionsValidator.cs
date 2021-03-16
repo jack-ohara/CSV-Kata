@@ -2,12 +2,14 @@
 using FluentValidation;
 using System;
 using System.IO;
+using System.Linq;
 
 namespace DataConverter.CommandLineOptions
 {
     public class CommandLineOptionsValidator : AbstractValidator<Options>
     {
-        private static string ValidFormats => string.Join(", ", Enum.GetNames(typeof(StructuredDataFormat)));
+        private static string ValidFormats => string.Join(", ", Enum.GetNames(typeof(StructuredDataFormat))
+            .Where(x => !x.Equals("csv", StringComparison.OrdinalIgnoreCase) ));
 
         public CommandLineOptionsValidator()
         {
@@ -15,7 +17,7 @@ namespace DataConverter.CommandLineOptions
                 .NotEmpty()
                 .Must(c => File.Exists(c))
                 .WithName("csvInputFile")
-                .WithMessage(o => $"Unable to find input file: {o.CsvInputFileName}. Please verify the file name and try again");
+                .WithMessage(o => $"Unable to find input file: '{o.CsvInputFileName}'. Please verify the file name and try again");
 
             RuleFor(o => o.TargetFormat)
                 .NotEmpty()

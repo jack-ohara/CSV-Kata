@@ -24,4 +24,10 @@
     <ProjectReference Include="..\..\src\DataConverter\DataConverter.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CommandLineOptions\exists.csv">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

@@ -13,12 +13,46 @@ namespace DataConverter.Tests.CommandLineOptions
         {
             var options = new Options { CsvInputFileName = csvInput };
 
-            var sut = new CommandLineOptionsValidator();
-
-            var result = sut.TestValidate(options);
+            var result = new CommandLineOptionsValidator().TestValidate(options);
 
             result.ShouldHaveValidationErrorFor(o => o.CsvInputFileName)
                 .WithErrorMessage("'csvInputFile' must not be empty.");
+        }
+
+        [Fact]
+        public void Returns_an_error_when_specified_csv_file_does_not_exist()
+        {
+            var options = new Options { CsvInputFileName = "notHere.csv" };
+
+            var result = new CommandLineOptionsValidator().TestValidate(options);
+
+            result.ShouldHaveValidationErrorFor(o => o.CsvInputFileName)
+                .WithErrorMessage($"Unable to find input file: 'notHere.csv'. Please verify the file name and try again");
+        }
+
+        [Fact]
+        public void Returns_an_error_when_the_format_is_not_supported()
+        {
+            var options = new Options { TargetFormat = "yaml" };
+
+            var result = new CommandLineOptionsValidator().TestValidate(options);
+
+            result.ShouldHaveValidationErrorFor(o => o.TargetFormat)
+                .WithErrorMessage($"The specified format 'yaml' is unrecognised or unsupported. Supported formats are: Json, Xml");
+        }
+
+        [Fact]
+        public void Validation_is_successful_for_a_valid_config()
+        {
+            var options = new Options
+            {
+                CsvInputFileName = "./CommandLineOptions/exists.csv",
+                TargetFormat = "json"
+            };
+
+            var result = new CommandLineOptionsValidator().TestValidate(options);
+
+            result.ShouldNotHaveAnyValidationErrors();
         }
     }
 }
