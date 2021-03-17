@@ -23,7 +23,7 @@ namespace DataConverter.Conversion
 
             var interpretedData = interpreter.Interpret(conversionOptions.InputData.Contents);
 
-            var writer = _dataWriterFactory.GetWriter(conversionOptions.TargetFormat, conversionOptions);
+            var writer = _dataWriterFactory.GetWriter(conversionOptions);
 
             return interpretedData.Count() == 1 ?
                 writer.WriteData(interpretedData.First()) :

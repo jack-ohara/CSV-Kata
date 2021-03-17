@@ -7,10 +7,9 @@ namespace DataConverter.Conversion.DataWriting
     public class StructuredDataWriterFactory
     {
         public IStructuredDataWriter GetWriter(
-            StructuredDataFormat dataFormat,
             StructuredDataConversionOptions conversionOptions)
         {
-            switch (dataFormat)
+            switch (conversionOptions.TargetFormat)
             {
                 case StructuredDataFormat.Json:
                     return new JsonDataWriter();
@@ -20,8 +19,8 @@ namespace DataConverter.Conversion.DataWriting
 
                 default:
                     throw new ArgumentException(
-                        $"Writing to the format ${dataFormat} is not supported.",
-                        nameof(dataFormat));
+                        $"Writing to the format ${conversionOptions.TargetFormat} is not supported.",
+                        nameof(conversionOptions));
             }
         }
     }
