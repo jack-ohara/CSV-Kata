@@ -41,7 +41,7 @@ namespace DataConverter.Conversion.Tests.DataWriting.Json
 
             var sut = new JsonDataWriter();
 
-            var result = sut.WriteData(data.RowData);
+            var result = sut.WriteData(data);
 
             Assert.Equal(StructuredDataFormat.Json, result.Format);
             Assert.Equal(expected, result.Contents);

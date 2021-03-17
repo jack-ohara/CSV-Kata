@@ -16,7 +16,7 @@ namespace DataConverter.Conversion.DataWriting
                     return new JsonDataWriter();
 
                 case StructuredDataFormat.Xml:
-                    return new XmlDataWriter(new JsonDataWriter(), conversionOptions.XmlOptions);
+                    return new XmlDataWriter(conversionOptions.XmlOptions);
 
                 default:
                     throw new ArgumentException(
