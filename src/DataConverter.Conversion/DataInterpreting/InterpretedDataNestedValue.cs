@@ -8,7 +8,7 @@ namespace DataConverter.Conversion.DataInterpreting
     {
         private readonly IDictionary<string, object> _nestedData;
 
-        public object Data => _nestedData;
+        public IDictionary<string, object> Data => _nestedData;
 
         public InterpretedDataNestedValue()
         {

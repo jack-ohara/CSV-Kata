@@ -12,7 +12,9 @@ namespace DataConverter.Conversion.Tests.DataWriting.Json
         {
             var sut = new JsonDataWriter();
 
-            var result = sut.WriteData(null);
+            InterpretedDataRow data = null;
+
+            var result = sut.WriteData(data);
 
             Assert.Equal(StructuredDataFormat.Json, result.Format);
             Assert.Equal(string.Empty, result.Contents);
@@ -33,9 +35,7 @@ namespace DataConverter.Conversion.Tests.DataWriting.Json
                 $"{{{newLine}" +
                 $"  \"key1\": \"value1\",{newLine}" +
                 $"  \"nested\": {{{newLine}" +
-                $"    {{{newLine}" +
-                $"      \"key2\": \"value2\"{newLine}" +
-                $"    }}{newLine}" +
+                $"    \"key2\": \"value2\"{newLine}" +
                 $"  }}{newLine}" +
                 $"}}";
 

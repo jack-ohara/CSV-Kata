@@ -13,11 +13,7 @@ namespace DataConverter.Conversion.DataInterpreting
 
         public override void Write(Utf8JsonWriter writer, InterpretedDataNestedValue value, JsonSerializerOptions options)
         {
-            writer.WriteStartObject();
-
             JsonSerializer.Serialize(writer, value.Data, options);
-
-            writer.WriteEndObject();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using DataConverter.Conversion.DataWriting.Json;
+﻿using DataConverter.Conversion.DataInterpreting;
+using DataConverter.Conversion.DataWriting.Json;
 using DataConverter.Conversion.DataWriting.Xml;
 using Xunit;
 
@@ -11,7 +12,9 @@ namespace DataConverter.Conversion.Tests.DataWriting.Xml
         {
             var sut = new XmlDataWriter(new JsonDataWriter(), new XmlConversionOptions());
 
-            var result = sut.WriteData(null);
+            InterpretedDataRow data = null;
+
+            var result = sut.WriteData(data);
 
             Assert.Equal(StructuredDataFormat.Xml, result.Format);
             Assert.Equal(string.Empty, result.Contents);

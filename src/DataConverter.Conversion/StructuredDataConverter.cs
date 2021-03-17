@@ -25,9 +25,9 @@ namespace DataConverter.Conversion
 
             var writer = _dataWriterFactory.GetWriter(conversionOptions.TargetFormat, conversionOptions);
 
-            object dataToConvert = interpretedData.Count() == 1 ? interpretedData.First() : interpretedData;
-
-            return writer.WriteData(dataToConvert);
+            return interpretedData.Count() == 1 ?
+                writer.WriteData(interpretedData.First()) :
+                writer.WriteData(interpretedData);
         }
     }
 }
