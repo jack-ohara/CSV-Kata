@@ -1,5 +1,4 @@
-﻿using DataConverter.Conversion.DataInterpreting;
-using DataConverter.Conversion.DataInterpreting.Csv;
+﻿using DataConverter.Conversion.DataInterpreting.Csv;
 using System;
 using System.Linq;
 using Xunit;
@@ -39,10 +38,11 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
             var result = interpreter.Interpret(csvData).ToList();
 
             Assert.Single(result);
-            Assert.Equal("value1", result[0]["property1"]);
-            Assert.Equal("value2", result[0]["property2"]);
-            Assert.Equal("nested_value1", result[0]["nested"].AsDictionary()["property1"]);
-            Assert.Equal("nested_value2", result[0]["nested"].AsDictionary()["nested1"].AsDictionary()["property2"]);
+            var resultRow = result[0];
+            Assert.Equal("value1", resultRow["property1"]);
+            Assert.Equal("value2", resultRow["property2"]);
+            Assert.Equal("nested_value1", resultRow.GetNested("nested")["property1"]);
+            Assert.Equal("nested_value2", resultRow.GetNested("nested").GetNested("nested1")["property2"]);
         }
 
         [InlineData("value1,value2", 2)]
@@ -72,7 +72,7 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
             var resultRow = result[0];
             Assert.Null(resultRow["property1"]);
             Assert.Null(resultRow["property2"]);
-            Assert.Null(resultRow["nested"].AsDictionary()["property3"]);
+            Assert.Null(resultRow.GetNested("nested")["property3"]);
         }
 
         [InlineData("value1,,value3", "value1", "", "value3")]
@@ -91,7 +91,7 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
             var resultRow = result[0];
             Assert.Equal(expectedValues[0], resultRow["property1"]);
             Assert.Equal(expectedValues[1], resultRow["property2"]);
-            Assert.Equal(expectedValues[2], resultRow["nested"].AsDictionary()["property3"]);
+            Assert.Equal(expectedValues[2], resultRow.GetNested("nested")["property3"]);
         }
 
         [Fact]
