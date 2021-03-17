@@ -6,7 +6,7 @@ namespace DataConverter.Conversion.DataInterpreting.Csv
 {
     public class CsvDataInterpreter : IStructuredDataInterpreter
     {
-        public IEnumerable<IDictionary<string, object>> Interpret(string csvData)
+        public IEnumerable<InterpretedDataRow> Interpret(string csvData)
         {
             if (csvData is null)
             {
@@ -26,7 +26,7 @@ namespace DataConverter.Conversion.DataInterpreting.Csv
             return rows.Select((row, idx) => GetDataRow(headers, row, idx));
         }
 
-        private static IDictionary<string, object> GetDataRow(string[] headers, string[] row, int rowIndex)
+        private static InterpretedDataRow GetDataRow(string[] headers, string[] row, int rowIndex)
         {
             if (row.Length != headers.Length)
             {
@@ -34,7 +34,7 @@ namespace DataConverter.Conversion.DataInterpreting.Csv
                     $"Row {rowIndex + 1} of the csv data contains {row.Length} value{(row.Length != 1 ? "s" : "")} but {headers.Length} were expected");
             }
 
-            var result = new Dictionary<string, object>();
+            var result = new InterpretedDataRow();
 
             for (var i = 0; i < headers.Length; i++)
             {
@@ -45,23 +45,18 @@ namespace DataConverter.Conversion.DataInterpreting.Csv
                     var propertyName = headerSegments[^1];
                     var nestingProperties = headerSegments[..^1];
 
-                    var previousLevelDictionary = result;
+                    var nestedValue = result.GetNested(nestingProperties[0]);
 
-                    foreach (var property in nestingProperties)
+                    foreach (var property in nestingProperties[1..])
                     {
-                        if (!previousLevelDictionary.ContainsKey(property))
-                        {
-                            previousLevelDictionary[property] = new Dictionary<string, object>();
-                        }
-
-                        previousLevelDictionary = previousLevelDictionary[property].AsDictionary();
+                        nestedValue = nestedValue.GetNested(property);
                     }
 
-                    previousLevelDictionary[propertyName] = row[i];
+                    nestedValue.AddValue(propertyName, row[i]);
                 }
                 else
                 {
-                    result[headerSegments[0]] = row[i];
+                    result.AddValue(headerSegments[0], row[i]);
                 }
             }
 
