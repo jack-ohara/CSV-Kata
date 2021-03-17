@@ -15,7 +15,7 @@ namespace DataConverter.Conversion.DataWriting.Json
                 };
             }
 
-            var options = new JsonSerializerOptions { WriteIndented = true };
+            var options = new JsonSerializerOptions { WriteIndented = true, MaxDepth = 0 };
 
             return new StructuredData
             {

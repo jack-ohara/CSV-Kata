@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace DataConverter.Conversion.DataInterpreting
 {
+    [JsonConverter(typeof(InterpretedDataNestedValueConverter))]
     public class InterpretedDataNestedValue
     {
         private readonly IDictionary<string, object> _nestedData;
+
+        public object Data => _nestedData;
 
         public InterpretedDataNestedValue()
         {

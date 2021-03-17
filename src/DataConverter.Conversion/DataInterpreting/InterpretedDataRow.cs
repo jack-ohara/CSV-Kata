@@ -1,43 +1,39 @@
 ﻿using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace DataConverter.Conversion.DataInterpreting
 {
     public class InterpretedDataRow
     {
-        private readonly IDictionary<string, object> _rowData;
+        public IDictionary<string, object> RowData { get; }
 
         public InterpretedDataRow()
         {
-            _rowData = new Dictionary<string, object>();
+            RowData = new Dictionary<string, object>();
         }
 
         public void AddValue(string key, string value)
         {
-            _rowData[key] = value;
+            RowData[key] = value;
         }
 
         public InterpretedDataNestedValue GetNested(string key)
         {
-            if (_rowData.ContainsKey(key))
+            if (RowData.ContainsKey(key))
             {
-                return _rowData[key] as InterpretedDataNestedValue;
+                return RowData[key] as InterpretedDataNestedValue;
             }
 
             var nestedValue = new InterpretedDataNestedValue();
 
-            _rowData[key] = nestedValue;
+            RowData[key] = nestedValue;
 
             return nestedValue;
         }
 
         public object this[string index]
         {
-            get => _rowData[index];
-        }
-
-        private void AddNestedValue(string key, string value)
-        {
-            
+            get => RowData[index];
         }
     }
 }

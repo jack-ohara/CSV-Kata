@@ -1,5 +1,6 @@
 ﻿using DataConverter.Conversion.DataInterpreting;
 using DataConverter.Conversion.DataWriting.Json;
+using System;
 using Xunit;
 
 namespace DataConverter.Conversion.Tests.DataWriting.Json
@@ -26,11 +27,21 @@ namespace DataConverter.Conversion.Tests.DataWriting.Json
             var nested = data.GetNested("nested");
             nested.AddValue("key2", "value2");
 
-            const string expected = "{\"key1\":\"value1\",\"nested\":{\"key2\":\"value2\"}}";
+            var newLine = Environment.NewLine;
+
+            var expected = 
+                $"{{{newLine}" +
+                $"  \"key1\": \"value1\",{newLine}" +
+                $"  \"nested\": {{{newLine}" +
+                $"    {{{newLine}" +
+                $"      \"key2\": \"value2\"{newLine}" +
+                $"    }}{newLine}" +
+                $"  }}{newLine}" +
+                $"}}";
 
             var sut = new JsonDataWriter();
 
-            var result = sut.WriteData(data);
+            var result = sut.WriteData(data.RowData);
 
             Assert.Equal(StructuredDataFormat.Json, result.Format);
             Assert.Equal(expected, result.Contents);
