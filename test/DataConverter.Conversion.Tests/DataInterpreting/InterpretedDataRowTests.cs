@@ -16,16 +16,23 @@ namespace DataConverter.Conversion.Tests.DataInterpreting
             Assert.Equal("value1", row["key1"]);
             Assert.Equal("value2", row["key2"]);
         }
+
         [Fact]
         public void Creates_expected_dictionary_with_nested_keys()
         {
             var row = new InterpretedDataRow();
 
-            row.AddValue("nested_key1", "value1");
-            row.AddValue("nested_nested2_key2", "value2");
+            row.AddValue("key1", "value1");
 
-            Assert.Equal("value1", row["nested"].AsDictionary()["key1"]);
-            Assert.Equal("value2", row["nested"].AsDictionary()["nested2"].AsDictionary()["key2"]);
+            var nested = row.GetNested("nested");
+            nested.AddValue("key2", "nestedValue1");
+
+            var inner = nested.GetNested("nested1");
+            inner.AddValue("key3", "nestedValue2");
+
+            Assert.Equal("value1", row["key1"]);
+            Assert.Equal("nestedValue1", row.GetNested("nested")["key2"]);
+            Assert.Equal("nestedValue2", row.GetNested("nested").GetNested("nested1")["key3"]);
         }
     }
 }
